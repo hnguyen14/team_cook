@@ -1,0 +1,43 @@
+{
+  "name": "Hainanese Chicken Rice",
+  "steps": [
+	  {
+	    "step": "1",
+	    "direction": "Remove the fat from cavity of the chieck and reserve for rice",
+      "image": "/img/remove.jpg",
+	    "time": ""
+	  },
+	  {
+	    "step": "2",
+	    "direction": "Rub chicken inside and out with 1 teaspoon of salt",
+      "image": "/img/rub.jpg",
+	    "time": ""
+	  },
+	  {
+	    "step": "3",
+	    "direction": "Add water to a 6 - 8 quart pot with 2 teaspoon of salt and ginger",
+      "image": "/img/pot.jpg",
+	    "time": ""
+	  },
+	  {
+	    "step": "4",
+	    "direction": "Put the chicken in the pot and bring to boil, covered",
+      "image": "/img/dump.jpg",
+	    "time": "",
+	    "temperature": "100"
+	  },
+	  {
+	    "step": "5",
+	    "direction": "Simmer the chicken at lower heat, partially covered",
+	    "time": "20",
+	    "dependance": "4",
+      "image": "/img/simmer.jpg"
+	  },
+	  {
+	    "step": "6",
+	    "direction": "Remove the chicken from pot, pat dry with paper towel. Cut into pieces. Reserve the broth for irce and soup",
+	    "dependance": "5",
+      "image": "/img/chop.jpeg"
+	  }
+	]
+}
