@@ -19,7 +19,7 @@
       var bigstep = $(stepTmpl);
       bigstep.data('step', step.step);
       bigstep
-        .find('.step-image img')
+        .find('.step-image')
           .attr('src', step.image);
       bigstep
         .find('.step-text')
@@ -29,8 +29,10 @@
   });
 
   function gotoStep(step) {
+    $('.ministep-active').toggleClass('ministep-active ministep-done');
     $('.step').hide();
-    if (step < steps.length) {
+    if (step <= steps.length) {
+      $('.ministep:nth-child(' + step + ')').addClass('ministep-active');
       $('.step:nth-child(' + step + ')').show();
     } else {
       $('#splash').show();
@@ -47,7 +49,7 @@
   }
 
   $(function() {
-    $('#splash').on('click', function(e) {
+    $('#splash').one('click', function(e) {
       dataDfd.done(function() {
         $(e.currentTarget).hide();
         nextStep();

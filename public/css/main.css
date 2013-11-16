@@ -66,7 +66,8 @@ textarea {
    ========================================================================== */
 
 .sidebar {
-  background-color: lightgrey;
+  border-right: 1px solid #ccc;
+  margin-right: -1px;
 }
 
 .main {
@@ -77,14 +78,20 @@ textarea {
   height: 50px;
 }
 
-.ministep-text {
+.ministep-active {
+  background-color: green;
+}
+
+.ministep-done {
+  opacity: 0.5;
 }
 
 .step {
   display: none;
+  text-align: center;
 }
 
-.step-image, .step-image img {
+.step-image {
   max-width: 100%;
 }
 
