@@ -80,9 +80,13 @@ textarea {
 .ministep-text {
 }
 
+.step {
+  display: none;
+}
 
-
-
+.step-image, .step-image img {
+  max-width: 100%;
+}
 
 
 
