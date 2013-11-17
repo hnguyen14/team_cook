@@ -70,6 +70,10 @@ textarea {
   margin-right: -1px;
 }
 
+.sidebar-title {
+  display: inline;
+}
+
 .on-fire {
   color: red;
 }
@@ -117,7 +121,9 @@ textarea {
   max-width: 100%;
 }
 
-
+.step-start, .step-done, .step-next {
+  display: none;
+}
 
 
 

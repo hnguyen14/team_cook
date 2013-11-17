@@ -6,18 +6,26 @@
     step.bigstep.show();
   }
 
+  function findNextStep() {
+    var currentStep = $('.step:visible').data('step');
+    var stepIdx = 0;
+    if (currentStep) {
+      stepIdx = currentStep.step % steps.length;
+    }
+    var nextStep = steps[stepIdx];
+    while (nextStep.state == 'done') {
+      nextStep = steps[++stepIdx % steps.length]
+    }
+    return nextStep == currentStep ? null : nextStep;
+  }
+
   function nextStep() {
-    var step = $('.step:visible').data('step');
+    var step = findNextStep();
     if (step) {
-      var nextStep = steps[step.step];
-      if (nextStep) {
-        gotoStep(nextStep);
-      } else {
-        $('.step').hide();
-        $('#splash').show();
-      }
+      gotoStep(step);
     } else {
-      gotoStep(steps[0]);
+      $('.step').hide();
+      $('#splash').show();
     }
   }
 
@@ -130,6 +138,11 @@
       $('.step-text', bigstep)
         .text(step.direction);
       $('.steps').append(bigstep);
+      if (step.duration || step.targetTemperature) {
+        $('.step-start', bigstep).show();
+      } else {
+        $('.step-done', bigstep).show();
+      }
 
       step.ministep = ministep;
       step.bigstep = bigstep;
@@ -149,24 +162,25 @@
     });
     $(document).on('keydown', function(e) {
       if (e.keyCode == 38) {
-        dataDfd.done(function() {
-          if ($('.step:visible').length) {
-            nextStep();
-          }
-        });
+        dataDfd.done(nextStep);
       } else if (e.keyCode == 40) {
-        advanceStep();
+        dataDfd.done(advanceStep);
       }
     });
-    $('.steps').on('click', '.step', function(e) {
-      nextStep();
+    $('.steps').on('click', '.step', function() {
+      dataDfd.done(advanceStep);
     });
+    $('.ministep-next').on('click', function() {
+        dataDfd.done(nextStep);
+      })
     $('.ministeps')
       .on('startStep', '.ministep', function(e) {
         var currentStep = $(this).data('step')
         currentStep.state = 'started';
         startStepTimer(currentStep);
         startStepThermometer(currentStep);
+        $('.step-btn', currentStep.bigstep).hide();
+        $('.step-done', currentStep.bigstep).show();
       })
       .on('dangerStep', '.ministep', function(e) {
         $(this).data('step').state = 'danger';
@@ -184,6 +198,8 @@
           .trigger('stopRumble')
           .css('opacity', 0.5)
           .addClass('ministep-done');
+        $('.step-btn', currentStep.bigstep).hide();
+        $('.step-next', currentStep.bigstep).show();
         nextStep();
       })
   });
