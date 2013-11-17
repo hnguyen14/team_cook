@@ -70,7 +70,16 @@ textarea {
   margin-right: -1px;
 }
 
+.on-fire {
+  color: red;
+}
+
 .main {
+}
+
+.ministep-danger {
+  background-color: red;
+  color: white;
 }
 
 .ministep-image img {

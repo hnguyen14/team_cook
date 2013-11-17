@@ -26,12 +26,14 @@
   function startStepTimer(step) {
     if (step && step.duration) {
       step.started = Date.now();
+      step.ministep.jrumble();
     }
   }
 
   function startStepThermometer(step) {
     if (step && step.targetTemperature) {
       step.temperature = 72;
+      step.ministep.jrumble();
     }
   }
 
@@ -39,6 +41,11 @@
     steps.forEach(function(step) {
       if (step.started) {
         var remaining = step.duration - (Date.now() - step.started);
+        if (remaining <= 0) {
+          remaining = 0;
+          delete step.started;
+          step.ministep.trigger('timerExpired');
+        }
         $('.ministep-timer', step.ministep).text(msToTime(remaining));
       }
     });
@@ -49,6 +56,9 @@
       if (step.temperature) {
         step.temperature += Math.round(Math.random() * 5);
         $('.ministep-thermometer-temperature', step.ministep).text(step.temperature);
+        if (step.temperature >= step.targetTemperature) {
+          step.ministep.trigger('onFire');
+        }
       }
     });
   }
@@ -119,6 +129,11 @@
     });
     $('.steps').on('click', '.step', function(e) {
       nextStep();
+    });
+    $('.ministeps').on('timerExpired onFire', '.ministep', function(e) {
+      $(this)
+        .addClass('ministep-danger')
+        .trigger('startRumble');
     });
   });
 })();
