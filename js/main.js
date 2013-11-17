@@ -78,7 +78,7 @@
 
   var ministepTmpl = $('#ministep-template').html();
   var stepTmpl = $('#step-template').html();
-  var dataDfd = $.getJSON('/hainanese.json');
+  var dataDfd = $.getJSON('hainanese.json');
   var steps;
 
   dataDfd.done(function(data) {
