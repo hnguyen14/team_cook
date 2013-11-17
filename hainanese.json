@@ -26,7 +26,7 @@
 	  {
 	    "step": 5,
 	    "direction": "Simmer the chicken at lower heat, partially covered",
-	    "duration": 300000,
+	    "duration": 10000,
 	    "dependance": 4,
       "image": "img/simmer.jpg"
 	  },

@@ -58,7 +58,7 @@
   function updateTemps() {
     steps.forEach(function(step) {
       if (step.temperature) {
-        step.temperature += Math.round(Math.random() * 5);
+        step.temperature += Math.round(Math.random() * 20);
         $('.ministep-thermometer-temperature', step.ministep).text(step.temperature);
         if (step.temperature >= step.targetTemperature) {
           step.ministep.trigger('dangerStep');
@@ -159,6 +159,9 @@
       } else if (e.keyCode == 40) {
         dataDfd.done(advanceStep);
       }
+    });
+    $('.steps').on('click', '.step-start, .step-done', function() {
+      dataDfd.done(advanceStep);
     });
     $('.ministep-next').on('click', function() {
         dataDfd.done(nextStep);
