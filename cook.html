@@ -41,7 +41,9 @@
     </head>
     <body class="cook">
       <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <a class="navbar-brand" href="index.html">Team Cook</a>
+        <div class="container">
+          <a class="navbar-brand" href="index.html">Team Cook</a>
+        </div>
       </nav>
       <div class="container">
         <div class="row">
@@ -58,9 +60,6 @@
       </div>
       <script id="step-template" type="text/template">
         <div class="col-md-9 step">
-          <h2 class="step-text"></h2>
-          <img class="step-image">
-          <div class="step-timer"></div>
           <button type="button" class="btn btn-success step-btn step-start">
             <span class="glyphicon glyphicon-play"></span> Start
           </button>
@@ -70,6 +69,9 @@
           <button type="button" class="btn btn-info step-btn step-next">
             <span class="glyphicon glyphicon-forward"></span> Next step
           </button>
+          <h2 class="step-text"></h2>
+          <img class="step-image">
+          <div class="step-timer"></div>
         </div>
       </script>
       <script id="ministep-template" type="text/template">

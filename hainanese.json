@@ -32,7 +32,7 @@
 	  },
 	  {
 	    "step": 6,
-	    "direction": "Remove the chicken from pot, pat dry with paper towel. Cut into pieces. Reserve the broth for irce and soup",
+	    "direction": "Remove the chicken from pot, pat dry with paper towel. Cut into pieces. Reserve the broth for rice and soup",
 	    "dependance": 5,
       "image": "img/chop.jpeg"
 	  }
