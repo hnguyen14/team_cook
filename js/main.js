@@ -127,6 +127,15 @@
         nextStep();
       });
     });
+    $(document).on('keydown', function(e) {
+      if (e.keyCode == 40) {
+        dataDfd.done(function() {
+          if ($('.step:visible').length) {
+            nextStep();
+          }
+        });
+      }
+    });
     $('.steps').on('click', '.step', function(e) {
       nextStep();
     });
