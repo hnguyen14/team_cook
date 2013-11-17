@@ -3,19 +3,19 @@
   "steps": [
 	  {
 	    "step": 1,
-	    "direction": "Remove the fat from cavity of the chicken and reserve for rice",
-      "image": "img/remove.jpg"
+	    "direction": "Cook 2 cups rice",
+      "image": "img/rice.jpg",
+      "duration": "210000"
 	  },
 	  {
 	    "step": 2,
-	    "direction": "Rub chicken inside and out with 1 teaspoon of salt",
-      "image": "img/rub.jpg",
-	    "duration": 1000
+	    "direction": "Chop 2 large onions and 3 cloves of garlic",
+      "image": "img/ingredients.jpg"
 	  },
 	  {
 	    "step": 3,
-	    "direction": "Add water to a 6 - 8 quart pot with 2 teaspoon of salt and ginger",
-      "image": "img/pot.jpg"
+	    "direction": "Rub chicken inside out with 1 teaspoon of salt",
+      "image": "img/rub.jpg"
 	  },
 	  {
 	    "step": 4,

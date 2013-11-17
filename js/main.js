@@ -160,13 +160,14 @@
         dataDfd.done(advanceStep);
       }
     });
-    $('.steps').on('click', '.step', function() {
-      dataDfd.done(advanceStep);
-    });
     $('.ministep-next').on('click', function() {
         dataDfd.done(nextStep);
       })
     $('.ministeps')
+      .on('click', '.ministep:not(.ministep-active):not(.ministep-done)', function(e) {
+        var step = $(this).data('step');
+        gotoStep(step);
+      })
       .on('startStep', '.ministep', function(e) {
         var currentStep = $(this).data('step')
         currentStep.state = 'started';

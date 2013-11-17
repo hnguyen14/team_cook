@@ -121,6 +121,7 @@ body.title, body.cook {
 
 .ministep {
   padding-right: 15px;
+  cursor: pointer;
 }
 
 .ministep-danger {
