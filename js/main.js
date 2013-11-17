@@ -1,11 +1,9 @@
 (function() {
   function gotoStep(step) {
-    $('.ministep-active').toggleClass('ministep-active ministep-done');
+    $('.ministep-active').removeClass('ministep-active');
     $('.step').hide();
     step.ministep.addClass('ministep-active');
     step.bigstep.show();
-    startStepTimer(step);
-    startStepThermometer(step);
   }
 
   function nextStep() {
@@ -44,7 +42,7 @@
         if (remaining <= 0) {
           remaining = 0;
           delete step.started;
-          step.ministep.trigger('timerExpired');
+          step.ministep.trigger('dangerStep');
         }
         $('.ministep-timer', step.ministep).text(msToTime(remaining));
       }
@@ -57,10 +55,32 @@
         step.temperature += Math.round(Math.random() * 5);
         $('.ministep-thermometer-temperature', step.ministep).text(step.temperature);
         if (step.temperature >= step.targetTemperature) {
-          step.ministep.trigger('onFire');
+          step.ministep.trigger('dangerStep');
         }
       }
     });
+  }
+
+  function advanceStep() {
+    var currentStep = $('.step:visible').data('step');
+    switch (currentStep.state) {
+      case 'started':
+        currentStep.ministep.trigger('finishStep');
+        break;
+      case 'done':
+        break;
+      case 'danger':
+        currentStep.ministep.trigger('finishStep');
+        break;
+      default:
+        if (currentStep.duration || currentStep.targetTemperature) {
+          currentStep.ministep.trigger('startStep');
+        } else {
+          currentStep.ministep.trigger('finishStep');
+        }
+        break;
+    }
+
   }
 
   function msToTime(duration) {
@@ -128,21 +148,43 @@
       });
     });
     $(document).on('keydown', function(e) {
-      if (e.keyCode == 40) {
+      if (e.keyCode == 38) {
         dataDfd.done(function() {
           if ($('.step:visible').length) {
             nextStep();
           }
         });
+      } else if (e.keyCode == 40) {
+        advanceStep();
       }
     });
     $('.steps').on('click', '.step', function(e) {
       nextStep();
     });
-    $('.ministeps').on('timerExpired onFire', '.ministep', function(e) {
-      $(this)
-        .addClass('ministep-danger')
-        .trigger('startRumble');
-    });
+    $('.ministeps')
+      .on('startStep', '.ministep', function(e) {
+        var currentStep = $(this).data('step')
+        currentStep.state = 'started';
+        startStepTimer(currentStep);
+        startStepThermometer(currentStep);
+      })
+      .on('dangerStep', '.ministep', function(e) {
+        $(this).data('step').state = 'danger';
+        $(this)
+          .addClass('ministep-danger')
+          .trigger('startRumble');
+      })
+      .on('finishStep', '.ministep', function(e) {
+        var currentStep = $(this).data('step');
+        currentStep.state = 'done';
+        delete currentStep.started;
+        delete currentStep.temperature;
+        $(this)
+          .removeClass('ministep-danger')
+          .trigger('stopRumble')
+          .css('opacity', 0.5)
+          .addClass('ministep-done');
+        nextStep();
+      })
   });
 })();
