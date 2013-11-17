@@ -5,6 +5,7 @@
     step.ministep.addClass('ministep-active');
     step.bigstep.show();
     startStepTimer(step);
+    startStepThermometer(step);
   }
 
   function nextStep() {
@@ -28,6 +29,30 @@
     }
   }
 
+  function startStepThermometer(step) {
+    if (step && step.targetTemperature) {
+      step.temperature = 72;
+    }
+  }
+
+  function updateTimers() {
+    steps.forEach(function(step) {
+      if (step.started) {
+        var remaining = step.duration - (Date.now() - step.started);
+        $('.ministep-timer', step.ministep).text(msToTime(remaining));
+      }
+    });
+  }
+
+  function updateTemps() {
+    steps.forEach(function(step) {
+      if (step.temperature) {
+        step.temperature += Math.round(Math.random() * 5);
+        $('.ministep-thermometer-temperature', step.ministep).text(step.temperature);
+      }
+    });
+  }
+
   function msToTime(duration) {
       var milliseconds = parseInt((duration%1000)/100)
           , seconds = parseInt((duration/1000)%60)
@@ -41,15 +66,6 @@
       return hours + ":" + minutes + ":" + seconds;
   }
 
-  function updateTimers() {
-    steps.forEach(function(step) {
-      if (step.started) {
-        var remaining = step.duration - (Date.now() - step.started);
-        $('.ministep-timer', step.ministep).text(msToTime(remaining));
-      }
-    });
-  }
-
   var ministepTmpl = $('#ministep-template').html();
   var stepTmpl = $('#step-template').html();
   var dataDfd = $.getJSON('/hainanese.json');
@@ -59,18 +75,29 @@
     steps = data.steps;
     steps.forEach(function(step) {
       var ministep = $(ministepTmpl);
-      ministep.find('.ministep-image img')
+      $('.ministep-image img', ministep)
         .attr('src', step.image);
-      ministep.find('.ministep-text')
+      $('.ministep-text', ministep)
         .text(step.direction);
-      ministep.find('.ministep-timer')
-        .text(step.duration && msToTime(step.duration));
+      if (step.duration) {
+        $('.ministep-timer', ministep)
+          .text(msToTime(step.duration));
+        $('.ministep-timer-icon', ministep)
+          .show();
+      }
+      if (step.targetTemperature) {
+        $('.ministep-thermometer-temperature', ministep)
+          .text('--');
+        $('.ministep-thermometer-target', ministep)
+          .text(step.targetTemperature);
+        $('.ministep-thermometer', ministep).show();
+      }
       $('.ministeps').append(ministep);
 
       var bigstep = $(stepTmpl);
-      bigstep.find('.step-image')
+      $('.step-image', bigstep)
         .attr('src', step.image);
-      bigstep.find('.step-text')
+      $('.step-text', bigstep)
         .text(step.direction);
       $('.steps').append(bigstep);
 
@@ -80,6 +107,7 @@
       bigstep.data('step', step);
     });
     setInterval(updateTimers, 1000);
+    setInterval(updateTemps, 1000);
   });
 
   $(function() {

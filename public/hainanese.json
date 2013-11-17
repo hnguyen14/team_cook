@@ -21,7 +21,7 @@
 	    "step": 4,
 	    "direction": "Put the chicken in the pot and bring to boil, covered",
       "image": "/img/dump.jpg",
-	    "temperature": 212
+	    "targetTemperature": 212
 	  },
 	  {
 	    "step": 5,

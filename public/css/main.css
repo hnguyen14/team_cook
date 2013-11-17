@@ -86,6 +86,19 @@ textarea {
   opacity: 0.5;
 }
 
+.ministep-timer-icon {
+  display: none;
+}
+
+.ministep-thermometer {
+  display: none;
+  font-weight: lighter;
+}
+
+.ministep-thermometer-temperature, .ministep-thermometer-temperature-unit {
+  font-weight: normal;
+}
+
 .step {
   display: none;
   text-align: center;
