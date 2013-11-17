@@ -21,11 +21,9 @@
 
   function nextStep() {
     var step = findNextStep();
+    console.log('step', step);
     if (step) {
       gotoStep(step);
-    } else {
-      $('.step').hide();
-      $('#splash').show();
     }
   }
 
@@ -151,15 +149,10 @@
     });
     setInterval(updateTimers, 1000);
     setInterval(updateTemps, 1000);
+    nextStep();
   });
 
   $(function() {
-    $('#splash').one('click', function(e) {
-      dataDfd.done(function() {
-        $(e.currentTarget).hide();
-        nextStep();
-      });
-    });
     $(document).on('keydown', function(e) {
       if (e.keyCode == 38) {
         dataDfd.done(nextStep);

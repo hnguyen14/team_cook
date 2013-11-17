@@ -65,6 +65,41 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+body.title, body.cook {
+  padding-top: 70px;
+}
+
+.menu-item {
+  text-align: center;
+}
+
+.splash {
+  background-image: url(img/cook.jpg);
+  height: 420px;
+  width: 630px;
+  margin: auto;
+  position: relative;
+  color: white;
+}
+
+.splash-cook, .splash-plus, .splash-handsfree {
+  position: absolute;
+  top: 250px;
+  font-family: impact;
+}
+
+.splash-cook {
+  left: 25px;
+}
+
+.splash-handsfree {
+  right: 10px;
+}
+
+.splash-plus {
+  left: 225px;
+}
+
 .sidebar {
   border-right: 1px solid #ccc;
   margin-right: -1px;
